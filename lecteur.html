@@ -33,7 +33,10 @@
         onStateChange: e => {
           if (e.data === 1) dire({etat: 'joue', id: ids[i], titre: (pl.getVideoData() || {}).title || ''});
           else if (e.data === 2) dire({etat: 'pause', id: ids[i]});
-          else if (e.data === 0) dire({etat: 'fini', id: ids[i]});
+          else if (e.data === 0) {                // fin du morceau : le suivant de la liste, tout seul
+            dire({etat: 'fini', id: ids[i]});
+            if (i + 1 < ids.length) { i++; pl.loadVideoById(ids[i]); }
+          }
         },
         onError: e => {                       // 101/150 : refusé hors YouTube -> la suivante, toute seule
           dire({etat: 'refus', id: ids[i], code: e.data});
