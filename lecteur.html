@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alyson · lecteur</title>
+<!-- Lecteur d'Alyson : affiché DANS l'application (cadre). Hébergé ici parce que les maisons de disques refusent
+     la lecture depuis une adresse locale (127.0.0.1). Rien n'est enregistré ; aucune donnée n'est envoyée ailleurs
+     que YouTube. Il reçoit seulement des identifiants de vidéo (11 caractères) et des ordres simples. -->
+<style>
+  html,body{margin:0;height:100%;background:transparent;overflow:hidden}
+  #p,iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+</style>
+</head>
+<body>
+<div id="p"></div>
+<script>
+(function(){
+  const OK = /^[A-Za-z0-9_-]{11}$/;
+  const q = new URLSearchParams(location.search);
+  const ids = [q.get('v')].concat((q.get('l') || '').split(',')).filter(x => x && OK.test(x)).slice(0, 8);
+  const son = q.get('son') === '1';
+  let i = 0, pl = null;
+  const dire = m => { try { parent.postMessage(Object.assign({alysonLecteur: 1}, m), '*'); } catch (e) {} };
+  if (!ids.length) { dire({etat: 'erreur', raison: 'aucune vidéo'}); return; }
+  window.onYouTubeIframeAPIReady = function () {
+    pl = new YT.Player('p', {
+      videoId: ids[0],
+      playerVars: {autoplay: 1, mute: son ? 0 : 1, playsinline: 1, rel: 0, modestbranding: 1},
+      events: {
+        onReady: () => { if (son) { pl.unMute(); pl.setVolume(80); } pl.playVideo(); },
+        onStateChange: e => {
+          if (e.data === 1) dire({etat: 'joue', id: ids[i], titre: (pl.getVideoData() || {}).title || ''});
+          else if (e.data === 2) dire({etat: 'pause', id: ids[i]});
+          else if (e.data === 0) dire({etat: 'fini', id: ids[i]});
+        },
+        onError: e => {                       // 101/150 : refusé hors YouTube -> la suivante, toute seule
+          dire({etat: 'refus', id: ids[i], code: e.data});
+          i++;
+          if (i < ids.length) pl.loadVideoById(ids[i]); else dire({etat: 'erreur', raison: 'aucune ne peut être lue ici'});
+        }
+      }
+    });
+  };
+  // ordres de l'application (seulement de la fenêtre qui contient ce lecteur)
+  addEventListener('message', ev => {
+    if (ev.source !== parent || !pl || !ev.data || typeof ev.data.ordre !== 'string') return;
+    const o = ev.data.ordre;
+    if (o === 'pause') pl.pauseVideo();
+    else if (o === 'lecture') pl.playVideo();
+    else if (o === 'son') { pl.unMute(); pl.setVolume(Math.max(0, Math.min(100, +ev.data.volume || 80))); }
+    else if (o === 'muet') pl.mute();
+    else if (o === 'suivante' && i + 1 < ids.length) { i++; pl.loadVideoById(ids[i]); }
+  });
+  const s = document.createElement('script');
+  s.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>
