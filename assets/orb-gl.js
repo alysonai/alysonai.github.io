@@ -44,7 +44,10 @@ mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
 
 void main(){
   float S=min(uRes.x,uRes.y);
-  vec2 p=(gl_FragCoord.xy-.5*uRes)/(S*(uMini>.5?.40:.30));
+  vec2 p=(gl_FragCoord.xy-.5*uRes)/(S*(uMini>.5?.34:.30));
+  // JAMAIS de carré : toute la lumière (halo, ondes, particules) s'éteint en douceur avant le cercle inscrit dans le canvas
+  float rb=length(gl_FragCoord.xy-.5*uRes)/(.5*S);
+  float bordure=1.-smoothstep(.70,.94,rb);
   p.y+=uMini>.5?0.:.08;
   float r=length(p), ang=atan(p.y,p.x), t=uT;
   // palette officielle (rose poudré, rose lumineux, blanc rosé) sur fond profond
@@ -98,7 +101,7 @@ void main(){
     float rr=length(pp), aa=atan(pp.y,pp.x);
     vec2 cell=vec2(floor((aa+3.1416)*36.),floor(rr*44.));
     float hsh=h21(cell);
-    float anneau=exp(-pow((rr-1.32-.08*snoise(vec3(cos(aa)*2.,sin(aa)*2.,t*.3+7.)))*4.,2.));
+    float anneau=exp(-pow((rr-(uMini>.5?1.12:1.32)-.08*snoise(vec3(cos(aa)*2.,sin(aa)*2.,t*.3+7.)))*4.,2.));
     float etoile=step(.72,hsh)*anneau*(.55+.45*sin(t*3.+hsh*40.));
     vec2 f=fract(vec2((aa+3.1416)*36.,rr*44.))-.5;
     c+=LUMI*etoile*smoothstep(.42,.0,length(f))*uPart*(1.2+1.5*uMic+uVoix)*(1.-dedans);
@@ -117,6 +120,7 @@ void main(){
   // reflet au sol
   if(uMini<.5){vec2 s=(p-vec2(0.,-1.42))*vec2(1.,5.);c+=CHAUD*exp(-dot(s,s)*1.2)*.16*uLum;}
 
+  c*=bordure;
   c=1.-exp(-c*1.7);                                   // tonalité douce : jamais brûlé
   float a=clamp(max(c.r,max(c.g,c.b))*1.15,0.,1.);
   gl_FragColor=vec4(c,a);
