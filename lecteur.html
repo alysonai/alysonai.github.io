@@ -22,7 +22,9 @@
   const ids = [q.get('v')].concat((q.get('l') || '').split(',')).filter(x => x && OK.test(x)).slice(0, 8);
   const son = q.get('son') === '1';
   let i = 0, pl = null;
-  const dire = m => { try { parent.postMessage(Object.assign({alysonLecteur: 1}, m), '*'); } catch (e) {} };
+  // contrôle de sécurité : ce cadre ne doit PAS voir le pont de l'application (window.pywebview / chrome.webview)
+  const pont = (typeof window.pywebview) + '/' + !!(window.chrome && window.chrome.webview);
+  const dire = m => { try { parent.postMessage(Object.assign({alysonLecteur: 1, pont: pont}, m), '*'); } catch (e) {} };
   if (!ids.length) { dire({etat: 'erreur', raison: 'aucune vidéo'}); return; }
   window.onYouTubeIframeAPIReady = function () {
     pl = new YT.Player('p', {
