@@ -240,7 +240,7 @@
   <p class="eyebrow monte">Questions</p>
   <h2 class="monte">Ce qu'on nous demande <em>le plus</em>.</h2>
   <div class="faq">
-    <details class="monte"><summary>Est-ce qu'Alyson est gratuite ?</summary><p>Oui, pour l'instant. Son cerveau local est gratuit et fonctionne hors ligne. Des formules avec plus de pouvoirs arriveront plus tard.</p></details>
+    <details class="monte"><summary>Est-ce qu'Alyson est gratuite ?</summary><p>Oui : la formule <b>CATERPILLAR</b> est gratuite (son cerveau local fonctionne même hors ligne). Les formules <b>CRYSALIS</b> et <b>BUTTERFLY</b>, avec plus de pouvoirs, arrivent bientôt.</p></details>
     <details class="monte"><summary>Faut-il un abonnement Claude ou ChatGPT ?</summary><p>Non. Alyson a son propre cerveau local. Claude, ChatGPT ou Gemini sont des cerveaux en plus, que tu branches si tu les as déjà.</p></details>
     <details class="monte"><summary>Quel ordinateur faut-il ?</summary><p>Windows 10 ou 11, un micro et des haut-parleurs. Pour son cerveau local, un ordinateur récent avec 16 Go de mémoire est conseillé. Une carte graphique la rend plus rapide.</p></details>
     <details class="monte"><summary>Peut-elle agir sans me demander ?</summary><p>Les petites choses sans risque, oui (ouvrir une appli). Tout ce qui modifie, supprime ou envoie quelque chose attend ton accord, à voix haute ou d'un clic.</p></details>
@@ -289,7 +289,7 @@ const dlWin = $('dlWin');
 if (LIENS.windows) dlWin.href = LIENS.windows;
 if (estMac) { $('pMac').classList.add('ici'); $('ctaPrincipal').querySelector('span').textContent = 'Alyson pour Mac arrive'; $('ctaPrincipal').href = '#telecharger'; $('noteOs').textContent = 'Version Mac bientôt · Windows disponible'; }
 else if (estTel) { $('pTel').classList.add('ici'); $('noteOs').textContent = 'Sur téléphone bientôt · ouvre ce lien sur ton ordinateur'; }
-else { $('pWin').classList.add('ici'); $('ctaPrincipal').href = LIENS.windows || '#telecharger'; $('ctaPrincipal').querySelector('span').textContent = 'Télécharger pour Windows'; $('noteOs').textContent = 'Gratuite · Windows 10 et 11 · 205 Mo'; }
+else { $('pWin').classList.add('ici'); $('ctaPrincipal').href = LIENS.windows || '#telecharger'; $('ctaPrincipal').querySelector('span').textContent = 'Télécharger pour Windows'; $('noteOs').textContent = 'Gratuite · Windows 10 et 11 · 215 Mo'; }
 
 // en-tête qui se pose au défilement, sections qui apparaissent
 addEventListener('scroll', () => $('haut').classList.toggle('solide', scrollY > 30), {passive: true});
