@@ -289,7 +289,7 @@ const dlWin = $('dlWin');
 if (LIENS.windows) dlWin.href = LIENS.windows;
 if (estMac) { $('pMac').classList.add('ici'); $('ctaPrincipal').querySelector('span').textContent = 'Alyson pour Mac arrive'; $('ctaPrincipal').href = '#telecharger'; $('noteOs').textContent = 'Version Mac bientôt · Windows disponible'; }
 else if (estTel) { $('pTel').classList.add('ici'); $('noteOs').textContent = 'Sur téléphone bientôt · ouvre ce lien sur ton ordinateur'; }
-else { $('pWin').classList.add('ici'); $('ctaPrincipal').href = LIENS.windows || '#telecharger'; $('ctaPrincipal').querySelector('span').textContent = 'Télécharger pour Windows'; $('noteOs').textContent = 'Gratuite · Windows 10 et 11 · 190 Mo'; }
+else { $('pWin').classList.add('ici'); $('ctaPrincipal').href = LIENS.windows || '#telecharger'; $('ctaPrincipal').querySelector('span').textContent = 'Télécharger pour Windows'; $('noteOs').textContent = 'Gratuite · Windows 10 et 11 · 205 Mo'; }
 
 // en-tête qui se pose au défilement, sections qui apparaissent
 addEventListener('scroll', () => $('haut').classList.toggle('solide', scrollY > 30), {passive: true});
