@@ -85,3 +85,16 @@
 }
 
 .ch::before{inset:-4.5rem -6rem;background:radial-gradient(closest-side,rgba(12,12,13,.88),rgba(12,12,13,.55) 60%,transparent)}
+
+/* écran vertical (téléphone, tablette debout) : tous les textes en bas, la scène au-dessus */
+@media (orientation:portrait){
+  .droite,.gauche,.centre,.bas-centre,.formule{left:clamp(1.4rem,6vw,4rem);right:clamp(1.4rem,6vw,4rem);top:auto;bottom:7vh;translate:none;max-width:none;text-align:left}
+  .centre p,.formule p,.bas-centre p{margin-left:0;margin-right:0}
+  .ch .actions{margin-top:1.2rem}
+  .ch h2{font-size:clamp(2.2rem,7vw,3.6rem)}
+  .formule h2{font-size:clamp(2.6rem,9vw,4.2rem)}
+  .bas-gauche{bottom:6vh}
+}
+
+html,body{overflow-x:hidden;max-width:100%}
+@media (max-width:600px){.voyage .nav{gap:.8rem}}

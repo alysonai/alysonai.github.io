@@ -14,6 +14,7 @@ import {SVGLoader} from "three/addons/loaders/SVGLoader.js";
 
 const calme = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const petit = innerWidth < 760;
+const debout = innerHeight > innerWidth * 1.05;            // téléphone ou tablette à la verticale : la scène en haut, le texte en bas
 const ROSE = new THREE.Color("#F8E7E9"), LUEUR = new THREE.Color("#FFDCE3"), NEON = new THREE.Color("#F49BC1"), NUIT = new THREE.Color("#101112");
 
 // ---------- moteur
@@ -26,7 +27,7 @@ renderer.toneMappingExposure = 1.05;
 const scene = new THREE.Scene();
 scene.background = NUIT.clone();
 scene.fog = new THREE.FogExp2(NUIT, .048);
-const camera = new THREE.PerspectiveCamera(petit ? 62 : 48, innerWidth / innerHeight, .05, 400);
+const camera = new THREE.PerspectiveCamera(debout ? 62 : 48, innerWidth / innerHeight, .05, 400);
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
 scene.add(new THREE.AmbientLight(0xffe6ee, .35));
@@ -175,7 +176,7 @@ anim.push(t => panneaux.forEach((m, i) => { m.position.y += Math.sin(t * .8 + i)
 // =====================================================================================
 const ailesSVG = new SVGLoader().parse(`<svg viewBox="0 0 952 838"><path d="${window.PAPILLON.d}"/></svg>`);
 const formes = ailesSVG.paths.flatMap(p => SVGLoader.createShapes(p));
-const aileDoux = new THREE.MeshStandardMaterial({color: "#F3D3DB", emissive: new THREE.Color("#F4B3C8"), emissiveIntensity: .42, roughness: .5, metalness: 0, side: THREE.DoubleSide});
+const aileDoux = new THREE.MeshStandardMaterial({color: "#F6DDE3", emissive: new THREE.Color("#F4B3C8"), emissiveIntensity: .72, roughness: .5, metalness: 0, side: THREE.DoubleSide});
 function papillon(echelle = 1, mat) {
   const g = new THREE.Group();
   const geo = s => {
@@ -298,7 +299,7 @@ for (let i = 0; i < 3; i++) {
   const h = new THREE.Mesh(new THREE.TorusGeometry(2.5 + i * .9, .02, 8, 200), neon(i ? NEON : LUEUR, .7 - i * .18));
   securite.add(h); anim.push(t => { h.rotation.x = t * (.1 + i * .05); h.rotation.y = t * (.13 - i * .03); });
 }
-const bouclier = new THREE.Mesh(new THREE.SphereGeometry(1.4, 64, 64), verre("#F8E7E9", 1.6)); securite.add(bouclier);
+const bouclier = new THREE.Mesh(new THREE.SphereGeometry(1.4, 64, 64), verre("#F8E7E9", .9)); securite.add(bouclier);
 
 // =====================================================================================
 // 9. SORTIE : le papillon s'envole vers toi
@@ -317,27 +318,27 @@ const CHEMIN = [  // [progression, position caméra, point regardé]
   [0.20, V(0, 0, -18), V(0, 0, -34)],               // le tunnel de ses pensées
   [0.28, V(-3, .3, -35), V(-16, 0, -45)],           // à gauche : elle écoute (la scène à gauche, le texte à droite)
   [0.33, V(-4.5, .3, -38), V(-16, 0, -45)],
-  [0.41, V(5, 1, -55), V(20, 1, -70.5)],              // à droite : elle agit (la scène à droite, le texte à gauche)
-  [0.46, V(7, 1.2, -57), V(20, 1, -70.5)],
-  [0.53, V(2, 8, -76), V(-5.2, 12, -88)],             // on monte : sa mémoire (à droite, le texte à gauche)
-  [0.58, V(0, 11, -76.5), V(-5.6, 12.6, -88)],
-  [0.65, V(-3, -2, -100), V(-6.4, -5, -117.5)],       // ses cerveaux (à gauche, le texte à droite)
-  [0.70, V(-5, -3, -103), V(-6.4, -5, -117.5)],
+  [0.41, V(5, 1, -55), V(20, 1, -68.6)],              // à droite : elle agit (la scène à droite, le texte à gauche)
+  [0.46, V(7, 1.2, -57), V(20, 1, -68.6)],
+  [0.53, V(2, 8, -76), V(-3.6, 12, -88)],             // on monte : sa mémoire (à droite, le texte à gauche)
+  [0.58, V(0, 11, -76.5), V(-4, 12.6, -88)],
+  [0.65, V(-3, -2, -100), V(-8.2, -5, -117)],       // ses cerveaux (à gauche, le texte à droite)
+  [0.70, V(-5, -3, -103), V(-8.2, -5, -117)],
   [0.75, V(-7.5, 1.6, -132), V(-7.5, -1.4, -142)],  // Caterpillar (en haut de l'écran, le nom en bas)
   [0.80, V(0, 1.7, -131), V(0, -1.3, -142)],        // Crysalis
   [0.85, V(8, 1.9, -130.5), V(8, -.8, -142)],      // Butterfly
-  [0.91, V(0, 0, -162), V(-3.6, 0, -172)],          // sécurité : retour au centre (le halo à droite, le texte à gauche)
-  [0.97, V(0, .5, -186), V(-4.2, .6, -200)],         // sortie : le papillon à droite, le texte à gauche
-  [1.00, V(.4, .7, -188.5), V(-3.9, .6, -200)],
+  [0.91, V(0, 0, -162), V(-1.6, 0, -172)],          // sécurité : retour au centre (le halo à droite, le texte à gauche)
+  [0.97, V(0, .5, -183), V(-2.6, .6, -200)],         // sortie : le papillon à droite, le texte à gauche
+  [1.00, V(.4, .7, -184.5), V(-2.4, .6, -200)],
 ];
-if (petit) {                                              // téléphone : l'Orb en haut, le texte en bas ; tout un peu plus loin
+if (debout) {                                             // écran vertical : l'Orb en haut, le texte en bas ; tout un peu plus loin
   CHEMIN[0][1] = V(0, .2, 12.5); CHEMIN[0][2] = V(0, -2.8, 0); CHEMIN[1][2] = V(0, -1.4, 0);
   for (const i of [10, 11]) { CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(3, 1, 6)); CHEMIN[i][2] = V(-12, -6.5, -114); }
-  for (const i of [12, 13, 14]) { CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(0, 1.5, 3)); CHEMIN[i][2].y -= 1.6; }
+  for (const i of [12, 13, 14]) { CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(0, .6, 4)); CHEMIN[i][2].y += .4; }
   for (const i of [8, 9]) CHEMIN[i][2] = V(0, 13.5, -88);
   CHEMIN[15][2] = V(0, -2.4, -172);
   for (const i of [6, 7]) CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(-3, .5, 4));
-  for (const i of [16, 17]) { CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(0, -1, 3)); CHEMIN[i][2] = V(0, -2.6, -200); }
+  for (const i of [16, 17]) { CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(0, -1, 3)); CHEMIN[i][2] = V(0, -3.3, -200); }
 }
 const courbePos = new THREE.CatmullRomCurve3(CHEMIN.map(c => c[1]), false, "centripetal");
 const courbeCib = new THREE.CatmullRomCurve3(CHEMIN.map(c => c[2]), false, "centripetal");
@@ -350,11 +351,12 @@ function poseCamera(p) {
 }
 
 // ---------- défilement lissé, souris, chapitres de texte
-const etat = {p: 0, vise: 0, mx: 0, my: 0, tx: 0, ty: 0, fige: false};
+const etat = {p: 0, vise: 0, mx: 0, my: 0, tx: 0, ty: 0, fige: false}, ecart = {x: 0, y: 0};
 const longueur = () => document.documentElement.scrollHeight - innerHeight;
 addEventListener("scroll", () => (etat.vise = scrollY / Math.max(1, longueur())), {passive: true});
 addEventListener("pointermove", e => { etat.tx = e.clientX / innerWidth - .5; etat.ty = e.clientY / innerHeight - .5; }, {passive: true});
-const chapitres = [...document.querySelectorAll("[data-de]")].map(el => ({el, de: +el.dataset.de, a: +el.dataset.a}));
+const chapitres = [...document.querySelectorAll("[data-de]")].map(el => ({el, de: +el.dataset.de, a: +el.dataset.a, o: 0,
+  cote: el.id === "ch-orb" ? 0 : /gauche/.test(el.className) ? 1 : /droite/.test(el.className) ? -1 : 0}));
 chapitres.forEach(c => { const t = c.el.querySelector("h1, h2, .petit-titre"); if (t && !t.hasAttribute("tabindex")) t.tabIndex = 0; });
 const allerA = p => scrollTo({top: Math.max(0, p) * longueur(), behavior: calme ? "auto" : "smooth"});
 chapitres.forEach(c => c.el.addEventListener("focusin", () => { if (etat.p < c.de || etat.p > c.a) allerA((Math.max(0, c.de) + Math.min(1, c.a)) / 2); }));
@@ -363,7 +365,7 @@ function majTextes(p) {
   for (const c of chapitres) {
     const dedans = p >= c.de && p <= c.a, bord = Math.min(p - c.de, c.a - p);
     const o = dedans ? Math.min(1, bord / .012) : 0;
-    c.el.style.opacity = o.toFixed(3);
+    c.o = o; c.el.style.opacity = o.toFixed(3);
     c.el.style.transform = `translateY(${((1 - o) * 24).toFixed(1)}px)`;
     c.el.style.filter = o < .99 ? `blur(${((1 - o) * 8).toFixed(1)}px)` : "none";
     c.el.style.pointerEvents = o > .3 ? "" : "none";                       // jamais cachés au clavier
@@ -391,11 +393,18 @@ function etape(direct) {
   camera.lookAt(cib.x + etat.mx * 1.4, cib.y - etat.my * .9, cib.z);
   lumiere.position.copy(camera.position); lumiere.position.y += 1.5; lumiere.position.z -= 2;
   orbeMat.uniforms.dedans.value = Math.min(1, Math.max(0, (2.2 - camera.position.length()) / 1.5));
-  for (const g of SCENES) g.visible = g.getWorldPosition(tmp).distanceTo(camera.position) < 48;
+  for (const g of SCENES) g.visible = g.getWorldPosition(tmp).distanceTo(camera.position) < 34;
   for (const a of liste) if (!a.g || a.g.visible) a.f(temps, dt);
   majTextes(etat.p);
+  let vx = 0, vy = 0;
+  for (const c of chapitres) { if (!debout) vx += c.cote * c.o; if (debout && c.el.id !== "ch-orb") vy += c.o; }
+  ecart.x += (vx - ecart.x) * (direct ? 1 : 1 - Math.exp(-dt * 3)); ecart.y += (vy - ecart.y) * (direct ? 1 : 1 - Math.exp(-dt * 3));
+  const W = innerWidth, H = innerHeight;
+  camera.setViewOffset(W, H, -ecart.x * W * .11, ecart.y * H * .16, W, H);
   composer.render();
 }
+addEventListener("orientationchange", () => location.reload());
+addEventListener("resize", () => { if ((innerHeight > innerWidth * 1.05) !== debout) location.reload(); });   // passage vertical ↔ horizontal : on recadre
 addEventListener("resize", () => {
   camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight); composer.setSize(innerWidth, innerHeight);
