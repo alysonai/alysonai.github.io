@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-en="Plans · Alyson AI">Formules · Alyson AI</title>
+<meta name="description" content="Les formules Caterpillar, Crysalis et Butterfly.">
+<meta property="og:image" content="assets/partage.png">
+<link rel="icon" href="assets/favicon.ico"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/page.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head>
+<body class="page" data-fond="chrysalide" data-cote="droite">
+<a class="bouton plein passer" href="#contenu" data-en="Skip to content">Aller au contenu</a>
+<canvas id="fond3d" aria-hidden="true"></canvas>
+<header class="nav" id="nav">
+  <a class="marque" href="index.html" aria-label="Alyson AI" data-en-aria="Alyson AI, home"><svg viewBox="0 0 952 838" aria-hidden="true"><path class="logo" fill="#F8E7E9"/></svg>Alyson</a>
+  <ul class="liens" id="liens"><li><a href="index.html" data-en="Home">Accueil</a></li><li><a href="fonctions.html" data-en="What she does">Ce qu'elle fait</a></li><li><a href="formules.html" aria-current="page" data-en="Plans">Formules</a></li><li><a href="securite.html" data-en="Safety">Sécurité</a></li><li><a href="aide.html" data-en="Help">Aide</a></li><li><a href="nouveautes.html" data-en="What&#x27;s new">Nouveautés</a></li><li><a href="histoire.html" data-en="Our story">Notre histoire</a></li></ul>
+  <button class="langue" type="button" lang="en" aria-label="Switch to English">EN</button>
+  <a class="bouton plein" href="telecharger.html" data-en="Download">Télécharger</a>
+  <button class="menu" id="menu" aria-expanded="false" aria-controls="liens" data-en="Menu">Menu</button>
+</header>
+<main id="contenu">
+<div class="entete"><h1 data-en="Three metamorphoses.">Trois métamorphoses.</h1><p data-en="Plans sell what Alyson can do. The AI stays yours: plug in your brain, or the free one.">Les formules vendent ce qu'Alyson sait faire. L'IA reste la tienne : tu branches ton cerveau, ou le cerveau gratuit.</p></div><section><div class="trio"><div class="carte"><svg viewBox="-60 -60 1072 958" class="creature-mini" data-creature="chenille" aria-hidden="true"></svg><h3>Caterpillar</h3><p class="prix" data-en="Free">Gratuite</p><ul><li><span data-en="Conversation and voice commands">Conversation et commandes à la voix</span></li><li><span data-en="Computer control, gestures included">Contrôle de l'ordinateur, gestes compris</span></li><li><span data-en="Memory on your computer">Mémoire sur ton ordinateur</span></li><li><span data-en="One brain, one task at a time">Un cerveau à la fois, une tâche à la fois</span></li></ul></div><div class="carte vedette"><svg viewBox="-60 -60 1072 958" class="creature-mini" data-creature="chrysalide" aria-hidden="true"></svg><h3>Crysalis</h3><p class="prix" data-en="Price soon">Prix bientôt</p><ul><li><span data-en="ElevenLabs voice">Voix ElevenLabs</span></li><li><span data-en="Several brains, compared automatically">Plusieurs cerveaux, comparés automatiquement</span></li><li><span data-en="Notion, Mem, Capacities, Anytype">Notion, Mem, Capacities, Anytype</span></li><li><span data-en="Two tasks at once, live translation">Deux tâches à la fois, traduction en direct</span></li></ul></div><div class="carte"><svg viewBox="-60 -60 1072 958" class="creature-mini" data-creature="papillon" aria-hidden="true"></svg><h3>Butterfly</h3><p class="prix" data-en="Price soon">Prix bientôt</p><ul><li><span data-en="The multi-AI council">Le conseil de plusieurs IA</span></li><li><span data-en="Four tasks at once, autopilot">Quatre tâches à la fois, pilote automatique</span></li><li><span data-en="Skills studio, advanced timeline">Studio de compétences, frise avancée</span></li><li><span data-en="Priority and early features">Priorité et nouveautés en avant-première</span></li></ul></div></div></section><section><h2 data-en="Prices are coming.">Les prix arrivent.</h2><p data-en="Leave your email: you&#x27;ll hear from us the day Crysalis and Butterfly open. Nothing else, never ads.">Laisse ton e-mail : tu seras prévenu le jour où Crysalis et Butterfly ouvrent. Rien d'autre, jamais de publicité.</p>
+<form class="prevenir" id="prevenir" novalidate>
+  <label for="pEmail" class="visuellement-cache" style="position:absolute;left:-9999px" data-en="Your email">Ton e-mail</label>
+  <input id="pEmail" type="email" required autocomplete="email" placeholder="ton@email.com" data-en-placeholder="you@email.com">
+  <label for="pFormule" style="position:absolute;left:-9999px" data-en="Plan">Formule</label>
+  <select id="pFormule"><option value="toutes" data-en="All plans">Toutes</option><option value="crysalis">Crysalis</option><option value="butterfly">Butterfly</option></select>
+  <input class="piege" id="pSite" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <button class="bouton plein" type="submit" data-en="Notify me">Me prévenir</button>
+</form>
+<p class="reponse" id="pReponse" role="status" aria-live="polite"></p>
+<p class="doux" style="font-size:.85rem" data-en="Your email is used for this only. Never sold or shared.">Ton e-mail sert seulement à ça. Il n'est ni vendu ni partagé.</p></section><section><h2 data-en="Compare everything">Tout comparer</h2><table class="tableau"><thead><tr><th></th><th>Caterpillar</th><th>Crysalis</th><th>Butterfly</th></tr></thead><tbody><tr><td><span data-en="Conversation, voice, wake word">Conversation, voix, mot de réveil</span></td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="ElevenLabs voice">Voix ElevenLabs</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Computer control, gestures">Contrôle de l'ordinateur, gestes</span></td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Web search">Recherche web</span></td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Deep research">Recherche approfondie</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td><span data-en="limited">limitée</span></td><td><span data-en="extended">étendue</span></td></tr><tr><td><span data-en="Local memory">Mémoire locale</span></td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Connected memories (Notion…)">Mémoires branchées (Notion…)</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Free brain on your computer">Cerveau gratuit sur l'ordinateur</span></td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Cloud brains at once">Cerveaux cloud en même temps</span></td><td><span data-en="1">1</span></td><td><span data-en="several">plusieurs</span></td><td><span data-en="several">plusieurs</span></td></tr><tr><td><span data-en="Automatic brain comparison">Comparaison automatique des cerveaux</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Multi-AI council">Conseil de plusieurs IA</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Tasks at once">Tâches en même temps</span></td><td><span data-en="1">1</span></td><td><span data-en="2">2</span></td><td><span data-en="4">4</span></td></tr><tr><td><span data-en="Live translation">Traduction en direct</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td><span data-en="advanced">avancée</span></td></tr><tr><td><span data-en="Screen understanding">Elle voit ton écran</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td><span data-en="one window">une fenêtre</span></td><td><span data-en="several">plusieurs</span></td></tr><tr><td><span data-en="Autopilot">Pilote automatique</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td><span data-en="limited">limité</span></td><td><span data-en="advanced">avancé</span></td></tr><tr><td><span data-en="Memory timeline">Frise de la mémoire</span></td><td><span data-en="simple">simple</span></td><td><span data-en="simple">simple</span></td><td><span data-en="advanced">avancée</span></td></tr><tr><td><span data-en="Skills studio">Studio de compétences</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr><tr><td><span data-en="Multiple devices">Plusieurs appareils</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td><td><span data-en="advanced">avancé</span></td></tr><tr><td><span data-en="Priority">Priorité</span></td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="non" aria-label="non" data-en-aria="no">–</td><td class="oui" aria-label="oui" data-en-aria="yes">●</td></tr></tbody></table></section><section><h2 data-en="Always included, in every plan">Toujours inclus, dans toutes les formules</h2><div class="bloc"><div><h3 data-en="Safety">La sécurité</h3><p data-en="Red lines, emergency stop, safe mode: never paid.">Lignes rouges, arrêt d'urgence, mode sécurisé : jamais payants.</p></div><div><h3 data-en="Your data">Tes données</h3><p data-en="Export or erase everything she knows, anytime.">Exporter ou effacer tout ce qu'elle sait, à tout moment.</p></div><div><h3 data-en="Your brain">Ton cerveau</h3><p data-en="Pay for your AI wherever you like, or use the free brain.">Tu payes ton IA chez qui tu veux, ou tu prends le cerveau gratuit.</p></div></div></section>
+</main>
+<footer>
+  <nav aria-label="Pied de page" data-en-aria="Footer"><a href="fonctions.html" data-en="What she does">Ce qu'elle fait</a><a href="formules.html" data-en="Plans">Formules</a><a href="securite.html" data-en="Safety">Sécurité</a><a href="aide.html" data-en="Help">Aide</a><a href="nouveautes.html" data-en="What&#x27;s new">Nouveautés</a><a href="histoire.html" data-en="Our story">Notre histoire</a><a href="telecharger.html" data-en="Download">Télécharger</a></nav>
+  <p data-en="Optional safety net: Llama Guard. Built with Llama. 3D scene: Three.js.">Filet de sécurité facultatif : Llama Guard. Built with Llama. Scène 3D : Three.js.</p>
+</footer>
+<div class="rideau" id="rideau" aria-hidden="true"><div></div><div></div><svg viewBox="0 0 952 838"><path class="logo" fill="#F8E7E9"/></svg></div>
+<script src="assets/papillon-chemin.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/creatures.js"></script><script>
+(function () {
+  const URL = "https://kyrnxbskuudsyhklozim.supabase.co/rest/v1/rpc/rejoindre_liste", CLE = "sb_publishable_vTZHVPCFZhk6-xyIof9nOg_1qLDCmbG";
+  const f = document.getElementById("prevenir"), r = document.getElementById("pReponse");
+  const champ = document.getElementById("pEmail"); champ.setAttribute("aria-describedby", "pReponse");
+  const dit = (fr, en, mauvais) => { r.textContent = (window.alysonLangue && alysonLangue() === "en") ? en : fr; champ.setAttribute("aria-invalid", mauvais ? "true" : "false"); };
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (document.getElementById("pSite").value) return;                         // un robot a rempli le champ caché
+    const email = document.getElementById("pEmail").value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return dit("Cet e-mail ne semble pas complet. Vérifie-le.", "This email looks incomplete. Please check it.", true);
+    const b = f.querySelector("button"); b.disabled = true; dit("Un instant…", "One moment…");
+    try {
+      const rep = await fetch(URL, {method: "POST", headers: {apikey: CLE, "Content-Type": "application/json"},
+        body: JSON.stringify({p_email: email, p_formule: document.getElementById("pFormule").value, p_langue: alysonLangue()})});
+      const v = rep.ok ? await rep.json() : "erreur";
+      if (v === "ok") { dit("C'est noté. Tu seras prévenu.", "Done. We'll let you know."); f.reset(); }
+      else if (v === "email_invalide") dit("Cet e-mail ne semble pas valide.", "This email doesn't look valid.", true);
+      else dit("Trop de demandes en ce moment. Réessaie dans une minute.", "Too many requests right now. Try again in a minute.");
+    } catch (_) { dit("Pas de connexion. Réessaie quand internet revient.", "No connection. Try again when you're back online."); }
+    b.disabled = false;
+  });
+  // les trois créatures de verre (les mêmes que dans le voyage)
+  document.querySelectorAll("svg[data-creature]").forEach(svg => {
+    const c = Creatures.dessiner(svg), garde = svg.dataset.creature;
+    ["chenille", "chrysalide", "papillon"].forEach(n => { if (n !== garde) c[n].remove(); });
+    const calme = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const tour = now => { c.animer(calme ? 0 : now / 1000, 1); if (!calme) requestAnimationFrame(tour); }; requestAnimationFrame(tour);
+  });
+})();
+</script>
+<script type="module" src="assets/fond3d.js"></script>
+</body>
+</html>

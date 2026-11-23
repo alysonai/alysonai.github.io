@@ -1,0 +1,88 @@
+/* Pages intérieures : le texte à gauche sur des vitres sombres, l'univers 3D derrière, l'objet à droite. */
+#fond3d{position:fixed;inset:0;width:100vw;height:100vh;z-index:0}
+.page::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(12,12,13,.86) 0%,rgba(12,12,13,.62) 38%,transparent 66%),radial-gradient(130% 100% at 50% 50%,transparent 60%,rgba(8,8,9,.7))}
+.page main{position:relative;z-index:2;padding:9rem clamp(1.4rem,6vw,6rem) 4rem;max-width:calc(720px + 12vw)}
+.page .entete{min-height:62vh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:4rem}
+.page .entete h1{font-size:clamp(3.2rem,7.5vw,6.4rem);line-height:.95;letter-spacing:-.02em;font-weight:400}
+.page .entete p{font-size:clamp(1.1rem,1.6vw,1.333rem);color:#C9C4C6;margin-top:1.6rem;max-width:40ch}
+.page h2{font-size:clamp(2rem,3.6vw,3rem);margin:0 0 1.2rem;line-height:1.05}
+.page h3{font-family:var(--corps);font-weight:600;font-size:1.05rem;letter-spacing:0;margin:0 0 .35rem;color:var(--texte)}
+.page p,.page li{color:#C9C4C6;line-height:1.65}
+.page section{padding:0;margin:0 0 6rem}
+.bloc{display:grid;gap:1.6rem 2.4rem;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));margin-top:2rem}
+.bloc > div{padding-top:1.1rem;border-top:1px solid rgba(248,231,233,.14)}
+.bloc > div p{margin:0;font-size:.97rem}
+.bientot{display:inline-block;font-size:.72rem;color:var(--nuit);background:var(--petale2);border-radius:99px;padding:.1rem .55rem;margin-left:.4rem;vertical-align:.15em}
+.page .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+
+/* formules */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.4rem}
+.carte{position:relative;padding:1.6rem 1.4rem 1.8rem;border-radius:28px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+  border:1px solid rgba(248,231,233,.14);backdrop-filter:blur(14px) saturate(1.2)}
+.carte.vedette{border-color:rgba(255,220,227,.45);box-shadow:0 30px 80px -40px rgba(244,155,193,.45)}
+.carte svg{width:100%;height:150px;display:block;margin:-.4rem 0 .6rem}
+.carte h3{font-family:var(--titre);font-weight:400;font-size:2.1rem;margin-bottom:.2rem}
+.carte .prix{color:var(--petale2);font-size:.95rem;margin:0 0 1rem}
+.carte ul{list-style:none;padding:0;margin:0;font-size:.95rem}
+.carte li{padding:.38rem 0;border-top:1px solid rgba(248,231,233,.08)}
+.tableau{width:100%;border-collapse:collapse;margin-top:2rem;font-size:.93rem}
+.tableau th,.tableau td{padding:.75rem .6rem;text-align:left;border-bottom:1px solid rgba(248,231,233,.1);color:#C9C4C6;vertical-align:top}
+.tableau thead th{font-family:var(--titre);font-weight:400;font-size:1.25rem;color:var(--texte);position:sticky;top:64px;background:rgba(16,17,18,.92);backdrop-filter:blur(10px)}
+.tableau td:not(:first-child),.tableau th:not(:first-child){text-align:center}
+.oui{color:var(--lueur)}.non{color:rgba(169,165,167,.45)}
+.prevenir{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem;max-width:34rem}
+.prevenir input,.prevenir select{flex:1 1 14rem;background:rgba(16,17,18,.7);border:1px solid rgba(248,231,233,.2);border-radius:99px;color:var(--texte);
+  font:inherit;padding:.8rem 1.2rem}
+.prevenir select{flex:0 1 11rem}
+.prevenir input:focus,.prevenir select:focus{outline:none;border-color:var(--petale)}
+.prevenir .piege{position:absolute;left:-9999px}
+.reponse{min-height:1.5em;margin-top:.8rem;font-size:.95rem}
+
+/* aide : questions qui s'ouvrent */
+details{border-top:1px solid rgba(248,231,233,.12);padding:1.1rem 0}
+details:last-child{border-bottom:1px solid rgba(248,231,233,.12)}
+summary{cursor:pointer;list-style:none;font-size:1.1rem;color:var(--texte);display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--titre);font-size:1.5rem;line-height:1;color:var(--petale2);transition:transform .4s var(--ease)}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:.8rem 0 0}
+ol.etapes{counter-reset:e;list-style:none;padding:0;margin:2rem 0 0}
+ol.etapes li{counter-increment:e;display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1.2rem 0;border-top:1px solid rgba(248,231,233,.12)}
+ol.etapes li::before{content:counter(e);font-family:var(--titre);font-size:2.2rem;line-height:1;color:var(--petale2)}
+
+/* nouveautés : la frise des versions */
+.frise{list-style:none;padding:0;margin:2rem 0 0;border-left:1px solid rgba(248,231,233,.2)}
+.frise li{position:relative;padding:0 0 2.6rem 2rem}
+.frise li::before{content:"";position:absolute;left:-5px;top:.55rem;width:9px;height:9px;border-radius:50%;background:var(--petale);box-shadow:0 0 14px var(--neon,#F49BC1)}
+.frise .version{font-family:var(--titre);font-size:1.9rem;color:var(--texte)}
+.frise .date{color:var(--texte2);font-size:.88rem;margin-left:.6rem}
+.frise ul{margin:.6rem 0 0;padding-left:1.1rem}
+
+.page footer{position:relative;z-index:2;border-top:1px solid rgba(248,231,233,.1);padding:2.4rem clamp(1.4rem,6vw,6rem);color:var(--texte2);font-size:.85rem;background:rgba(16,17,18,.85)}
+.page footer nav{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-bottom:.8rem}
+.page footer a{text-decoration:none}.page footer a:hover{color:var(--texte)}
+.page .liens a{white-space:nowrap}
+@media (max-width:1180px){
+  .page .liens{display:none}.page .menu{display:block}.page .langue{margin-left:auto}
+  .page .nav.ouvert .liens{display:flex;position:fixed;inset:64px 0 auto 0;flex-direction:column;gap:0;background:rgba(16,17,18,.96);padding:1rem 1.5rem 2rem}
+  .page .nav.ouvert .liens a{display:block;padding:.9rem 0;font-size:1.2rem}
+}
+@media (max-width:900px){
+  .trio{grid-template-columns:1fr}
+  .page::after{background:linear-gradient(rgba(12,12,13,.78),rgba(12,12,13,.86))}
+  .tableau{font-size:.82rem}.tableau thead th{font-size:1rem}
+}
+
+/* formules : les cartes et le tableau prennent plus de place que le texte */
+.page section:has(.trio),.page section:has(.tableau){width:min(1120px,calc(100vw - 2 * clamp(1.4rem,6vw,6rem)))}
+.carte{min-height:0}
+
+.carte{background:linear-gradient(160deg,rgba(32,28,31,.92),rgba(18,17,19,.9))}
+.prevenir input:focus-visible,.prevenir select:focus-visible{outline:2px solid var(--lueur);outline-offset:3px}
+.prevenir input[aria-invalid="true"]{border-color:#F49BC1}
+.passer{position:absolute;left:-999px;top:1rem;z-index:99}.passer:focus{left:1rem}
+
+.page main{max-width:calc(640px + 10vw)}
+.page::after{background:linear-gradient(90deg,rgba(12,12,13,.92) 0%,rgba(12,12,13,.8) 45%,rgba(12,12,13,.2) 72%,transparent 85%),radial-gradient(130% 100% at 50% 50%,transparent 60%,rgba(8,8,9,.7))}
+.tableau td,.tableau th{background:rgba(16,17,18,.78)}

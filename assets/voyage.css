@@ -1,0 +1,85 @@
+/* Le voyage 3D : la scène remplit l'écran, le texte flotte par-dessus, minimal, jamais sur l'Orb. */
+#scene3d{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block}
+.voyage .piste{height:1500vh}
+.voyage .nav{background:linear-gradient(rgba(16,17,18,.55),transparent);backdrop-filter:none}
+.chapitres{position:fixed;inset:0;z-index:2;pointer-events:none}
+.ch{position:absolute;max-width:min(30rem,86vw);opacity:0;will-change:opacity,transform,filter;padding:0}
+.ch *{pointer-events:auto}
+.ch h1{font-size:clamp(4.5rem,13vw,11rem);line-height:.9;letter-spacing:-.025em;font-weight:400}
+.ch h2{font-size:clamp(2.4rem,5.2vw,4.4rem);line-height:1;margin-bottom:1.1rem}
+.ch p{margin:0 0 1.2rem}
+.ch .grand{font-size:clamp(1.1rem,1.6vw,1.333rem);color:var(--texte2);margin-top:1.2rem}
+.ch .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
+.petit-titre{font-family:var(--titre);font-style:italic;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--texte2)}
+.bas-gauche{left:clamp(1.4rem,6vw,6rem);bottom:clamp(2rem,9vh,6rem)}
+.bas-centre{left:50%;bottom:clamp(2rem,9vh,6rem);translate:-50% 0;text-align:center}
+.bas-centre p{margin-left:auto;margin-right:auto}
+.centre{left:50%;top:50%;translate:-50% -50%;text-align:center}
+.centre p{margin-left:auto;margin-right:auto}
+.gauche{left:clamp(1.4rem,6vw,6rem);top:50%;translate:0 -50%}
+.droite{right:clamp(1.4rem,6vw,6rem);top:50%;translate:0 -50%}
+.formule{left:50%;bottom:clamp(2rem,8vh,5rem);translate:-50% 0;text-align:center}
+.formule h2{font-size:clamp(3rem,7vw,6rem)}
+.formule p{margin-left:auto;margin-right:auto}
+
+/* fil du voyage : une fine ligne qui avance en bas de l'écran */
+.fil-voyage{position:fixed;left:0;right:0;bottom:0;height:2px;z-index:3;background:rgba(248,231,233,.08)}
+.fil-voyage i{display:block;height:100%;background:var(--petale);transform-origin:left;transform:scaleX(var(--avance,0))}
+
+/* grain de pellicule, très léger : l'image a la texture d'un film */
+.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(1%,3%)}}
+/* vignette de cinéma */
+.voyage::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 50%,transparent 55%,rgba(8,8,9,.75))}
+
+.pied-voyage{position:relative;z-index:2;padding:2.5rem clamp(1.4rem,6vw,6rem);color:var(--texte2);font-size:.85rem;
+  background:linear-gradient(transparent,var(--nuit) 40%)}
+.pied-voyage nav{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-bottom:1rem}
+.pied-voyage a{text-decoration:none}
+.pied-voyage a:hover{color:var(--texte)}
+
+.arrete #scene3d{filter:saturate(.2) brightness(.6);transition:filter .5s}
+
+/* sans WebGL ou mouvement réduit au minimum : les chapitres se lisent à la suite */
+.sans3d .chapitres{position:static}
+.sans3d .ch{position:static;opacity:1!important;visibility:visible!important;translate:none;margin:0 auto;padding:6rem 1.4rem;filter:none!important;transform:none!important}
+.sans3d .piste,.sans3d .fil-voyage{display:none}
+@media (max-width:760px){
+  .droite,.gauche{left:1.4rem;right:1.4rem;top:auto;bottom:8vh;translate:none}
+  .ch h1{font-size:clamp(4rem,22vw,6rem)}
+}
+@media (prefers-reduced-motion:reduce){.grain{animation:none}}
+
+.voyage .liens a{white-space:nowrap}
+@media (max-width:1180px){
+  .voyage .liens{display:none}
+  .voyage .menu{display:block}
+  .voyage .nav.ouvert .liens{display:flex;position:fixed;inset:64px 0 auto 0;flex-direction:column;gap:0;background:rgba(16,17,18,.96);padding:1rem 1.5rem 2rem}
+  .voyage .nav.ouvert .liens a{display:block;padding:.9rem 0;font-size:1.2rem}
+}
+@media (max-width:1180px){.voyage .langue{margin-left:auto}}
+.ch .pied{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:2.2rem;font-size:.85rem}
+.ch .pied a{color:var(--texte2);text-decoration:none}.ch .pied a:hover{color:var(--texte)}
+.ch .mention{font-size:.75rem;color:rgba(169,165,167,.7);margin-top:.8rem}
+
+/* lisibilité : un voile doux derrière chaque texte, plutôt qu'un contour */
+.ch::before{content:"";position:absolute;inset:-3.5rem -4.5rem;z-index:-1;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(12,12,13,.72),rgba(12,12,13,.35) 60%,transparent);filter:blur(6px)}
+.ch p{color:#C9C4C6;font-size:1.06rem;line-height:1.6}
+.ch h2{letter-spacing:-.015em}
+
+/* le menu reste lisible même quand l'Orb remplit l'écran */
+.voyage .nav{background:linear-gradient(rgba(12,12,13,.88),rgba(12,12,13,.55) 70%,transparent);backdrop-filter:blur(10px)}
+/* mouvement réduit ou sans 3D : pas de scène derrière, une colonne de lecture simple */
+.sans3d #scene3d,.sans3d .grain{display:none}
+.sans3d .chapitres{max-width:46rem;margin:0 auto;padding-top:6rem}
+.sans3d .ch{text-align:left;padding:3rem 1.4rem}
+.sans3d .ch::before{display:none}
+.sans3d .nav{background:var(--nuit)}
+@media (max-width:760px){
+  .formule{bottom:4vh}
+  .formule h2{font-size:clamp(2.4rem,11vw,3.2rem)}
+  .gauche{left:1.4rem;right:1.4rem;top:auto;bottom:6vh;translate:none}
+}
