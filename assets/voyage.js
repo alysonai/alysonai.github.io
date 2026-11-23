@@ -175,7 +175,7 @@ anim.push(t => panneaux.forEach((m, i) => { m.position.y += Math.sin(t * .8 + i)
 // =====================================================================================
 const ailesSVG = new SVGLoader().parse(`<svg viewBox="0 0 952 838"><path d="${window.PAPILLON.d}"/></svg>`);
 const formes = ailesSVG.paths.flatMap(p => SVGLoader.createShapes(p));
-const aileDoux = new THREE.MeshStandardMaterial({color: "#F8E7E9", emissive: new THREE.Color("#F4B3C8"), emissiveIntensity: .12, roughness: .55, metalness: 0, side: THREE.DoubleSide});
+const aileDoux = new THREE.MeshStandardMaterial({color: "#F3D3DB", emissive: new THREE.Color("#F4B3C8"), emissiveIntensity: .42, roughness: .5, metalness: 0, side: THREE.DoubleSide});
 function papillon(echelle = 1, mat) {
   const g = new THREE.Group();
   const geo = s => {
@@ -228,7 +228,7 @@ function etiquette(texte, taille = 64) {
     g.font = `400 ${taille}px 'Bodoni Moda', Georgia, serif`; g.fillStyle = "#FAF7F7"; g.textBaseline = "middle"; g.fillText(texte, 20, c.height / 2); tex.needsUpdate = true; };
   dessiner(); redessins.push(dessiner);
   const sp = new THREE.Sprite(new THREE.SpriteMaterial({map: tex, transparent: true, depthWrite: false}));
-  sp.scale.set(c.width / c.height * .55, .55, 1); return sp;
+  const h = petit ? .34 : .55; sp.scale.set(c.width / c.height * h, h, 1); return sp;
 }
 groupe = null; const cerveaux = new THREE.Group(); groupe = cerveaux; cerveaux.position.set(-12, -5, -114); scene.add(cerveaux);
 const centreC = new THREE.Mesh(new THREE.SphereGeometry(1.1, 48, 48), verre("#F8E7E9", .6)); cerveaux.add(centreC);
@@ -286,7 +286,7 @@ const etincelles = [0, Math.PI].map(d => { const s = new THREE.Sprite(new THREE.
   s.scale.setScalar(.6); anneau.add(s); return {s, d}; });
 anim.push(t => { chrysalide.rotation.y = t * .25; etincelles.forEach(({s, d}) => s.position.set(Math.cos(t * .9 + d) * 2.6, Math.sin(t * .9 + d) * 2.6, 0)); });
 // Butterfly : les ailes officielles, en verre néon
-const aileMat = new THREE.MeshStandardMaterial({color: "#F8E7E9", emissive: new THREE.Color("#F4B3C8"), emissiveIntensity: .12, roughness: .55, metalness: 0, side: THREE.DoubleSide});
+const aileMat = aileDoux;
 const grand = papillon(1.05, aileMat); grand.position.set(8, .4, 0); meta.add(grand);
 anim.push(t => { grand.userData.battre(t * 1.6, .7); grand.position.y = .3 + Math.sin(t * 1.2) * .2; });
 
@@ -298,7 +298,7 @@ for (let i = 0; i < 3; i++) {
   const h = new THREE.Mesh(new THREE.TorusGeometry(2.5 + i * .9, .02, 8, 200), neon(i ? NEON : LUEUR, .7 - i * .18));
   securite.add(h); anim.push(t => { h.rotation.x = t * (.1 + i * .05); h.rotation.y = t * (.13 - i * .03); });
 }
-const bouclier = new THREE.Mesh(new THREE.SphereGeometry(1.4, 64, 64), verre("#F8E7E9", .35)); securite.add(bouclier);
+const bouclier = new THREE.Mesh(new THREE.SphereGeometry(1.4, 64, 64), verre("#F8E7E9", 1.6)); securite.add(bouclier);
 
 // =====================================================================================
 // 9. SORTIE : le papillon s'envole vers toi
@@ -336,6 +336,8 @@ if (petit) {                                              // téléphone : l'Orb
   for (const i of [12, 13, 14]) { CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(0, 1.5, 3)); CHEMIN[i][2].y -= 1.6; }
   for (const i of [8, 9]) CHEMIN[i][2] = V(0, 13.5, -88);
   CHEMIN[15][2] = V(0, -2.4, -172);
+  for (const i of [6, 7]) CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(-3, .5, 4));
+  for (const i of [16, 17]) { CHEMIN[i][1] = CHEMIN[i][1].clone().add(V(0, -1, 3)); CHEMIN[i][2] = V(0, -2.6, -200); }
 }
 const courbePos = new THREE.CatmullRomCurve3(CHEMIN.map(c => c[1]), false, "centripetal");
 const courbeCib = new THREE.CatmullRomCurve3(CHEMIN.map(c => c[2]), false, "centripetal");
@@ -353,6 +355,7 @@ const longueur = () => document.documentElement.scrollHeight - innerHeight;
 addEventListener("scroll", () => (etat.vise = scrollY / Math.max(1, longueur())), {passive: true});
 addEventListener("pointermove", e => { etat.tx = e.clientX / innerWidth - .5; etat.ty = e.clientY / innerHeight - .5; }, {passive: true});
 const chapitres = [...document.querySelectorAll("[data-de]")].map(el => ({el, de: +el.dataset.de, a: +el.dataset.a}));
+chapitres.forEach(c => { const t = c.el.querySelector("h1, h2, .petit-titre"); if (t && !t.hasAttribute("tabindex")) t.tabIndex = 0; });
 const allerA = p => scrollTo({top: Math.max(0, p) * longueur(), behavior: calme ? "auto" : "smooth"});
 chapitres.forEach(c => c.el.addEventListener("focusin", () => { if (etat.p < c.de || etat.p > c.a) allerA((Math.max(0, c.de) + Math.min(1, c.a)) / 2); }));
 document.querySelectorAll('a[href="#voyage"]').forEach(a => a.addEventListener("click", e => { e.preventDefault(); allerA(.165); }));

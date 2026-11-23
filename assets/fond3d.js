@@ -121,7 +121,7 @@ function image() {
   lumiere.position.copy(camera.position).add(new THREE.Vector3(0, 1.5, -2));
   univers.rotation.y = temps * .01;
   const dedans = attenue.some(el => { const r = el.getBoundingClientRect(); return r.top < innerHeight * .8 && r.bottom > innerHeight * .2; });
-  voile += ((dedans ? .32 : 1) - voile) * .06; objet.scale.setScalar(voile);
+  voile += ((dedans ? .16 : 1) - voile) * .06; objet.scale.setScalar(voile);
   bloom.strength = .2 + .3 * voile; scene.fog.density = .05 + (1 - voile) * .06;
   anim.forEach(f => f(temps));
   composer.render();

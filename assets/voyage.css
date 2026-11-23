@@ -83,3 +83,5 @@
   .formule h2{font-size:clamp(2.4rem,11vw,3.2rem)}
   .gauche{left:1.4rem;right:1.4rem;top:auto;bottom:6vh;translate:none}
 }
+
+.ch::before{inset:-4.5rem -6rem;background:radial-gradient(closest-side,rgba(12,12,13,.88),rgba(12,12,13,.55) 60%,transparent)}
