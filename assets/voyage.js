@@ -140,6 +140,9 @@ anim.push(t => {
 // =====================================================================================
 // 4. À DROITE : ELLE AGIT (fenêtres de verre en arc, une souris-papillon qui passe de l'une à l'autre)
 // =====================================================================================
+if (!CanvasRenderingContext2D.prototype.roundRect) {        // vieux navigateurs : un rectangle simple
+  CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h) { this.rect(x, y, w, h); };
+}
 const redessins = [];                                    // les textes dessinés en Bodoni sont redessinés quand la police est prête
 function ecranTexture(titre, lignes) {
   const c = document.createElement("canvas"); c.width = 512; c.height = 320;

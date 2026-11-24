@@ -96,5 +96,5 @@
   .bas-gauche{bottom:6vh}
 }
 
-html,body{overflow-x:hidden;max-width:100%}
+html,body{overflow-x:clip;max-width:100%}
 @media (max-width:600px){.voyage .nav{gap:.8rem}}

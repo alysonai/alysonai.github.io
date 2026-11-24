@@ -12,8 +12,8 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=18">
-<link rel="stylesheet" href="assets/voyage.css?v=18">
+<link rel="stylesheet" href="assets/site.css?v=20">
+<link rel="stylesheet" href="assets/voyage.css?v=20">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 </head>
 <body class="voyage">
@@ -91,7 +91,7 @@
 
   <section class="ch bas-gauche" data-de=".965" data-a="2">
     <h2 data-en="Ready when you are.">Prête quand tu l'es.</h2>
-    <p class="doux" data-en="Free to start. Windows 10 and 11, Mac soon.">Gratuite pour commencer. Windows 10 et 11, Mac bientôt.</p>
+    <p class="doux" data-en="Try her free for 5 days. Windows 10 and 11, Mac soon.">Essaie-la gratuitement pendant 5 jours. Windows 10 et 11, Mac bientôt.</p>
     <div class="actions">
       <a class="bouton plein" href="https://github.com/alysonai/alysonai.github.io/releases/latest/download/Alyson-Windows.zip" data-en="Download for Windows">Télécharger pour Windows</a>
       <a class="bouton fin" href="fonctions.html" data-en="Everything she can do">Tout ce qu'elle sait faire</a>
@@ -100,6 +100,7 @@
       <a href="fonctions.html" data-en="What she does">Ce qu'elle fait</a><a href="formules.html" data-en="Plans">Formules</a><a href="securite.html" data-en="Safety">Sécurité</a>
       <a href="aide.html" data-en="Help">Aide</a><a href="nouveautes.html" data-en="What&#x27;s new">Nouveautés</a><a href="histoire.html" data-en="Our story">Notre histoire</a><a href="telecharger.html" data-en="Download">Télécharger</a>
     </nav>
+    <nav class="pied" aria-label="Informations légales" data-en-aria="Legal"><a href="cgv.html" data-en="Terms of sale">Conditions de vente</a><a href="confidentialite.html" data-en="Privacy">Confidentialité</a><a href="remboursement.html" data-en="Refunds">Remboursement</a><a href="mentions-legales.html" data-en="Legal notice">Mentions légales</a><a href="contact.html" data-en="Contact">Contact</a></nav>
     <p class="mention" data-en="Optional safety net: Llama Guard, Built with Llama. 3D scene: Three.js.">Filet de sécurité facultatif : Llama Guard, Built with Llama. Scène 3D : Three.js.</p>
   </section>
 </main>
@@ -111,9 +112,9 @@
 
 <div class="rideau" id="rideau" aria-hidden="true"><div></div><div></div><svg viewBox="0 0 952 838"><path class="logo" fill="#F8E7E9"/></svg></div>
 
-<script src="assets/papillon-chemin.js?v=18"></script>
-<script src="assets/i18n.js?v=18"></script>
-<script src="assets/site.js?v=18"></script>
+<script src="assets/papillon-chemin.js?v=20"></script>
+<script src="assets/i18n.js?v=20"></script>
+<script src="assets/site.js?v=20"></script>
 <script>
   // sans WebGL : les chapitres s'affichent simplement les uns sous les autres
   (function () { try { var c = document.createElement("canvas"); if (!(c.getContext("webgl2") || c.getContext("webgl"))) throw 0; }
@@ -125,6 +126,11 @@
     setTimeout(function () { window.figerVoyage && window.figerVoyage(false); u.setAttribute("aria-pressed", "false"); ut.textContent = (window.alysonLangue && alysonLangue() === "en") ? "Try it" : "Essayer"; document.body.classList.remove("arrete"); }, 2600);
   });
 </script>
-<script type="module" src="assets/voyage.js?v=18"></script>
+<script type="module" src="assets/voyage.js?v=20"></script>
+<script>
+  // filet : si la 3D n'a pas démarré après 6 s (vieux navigateur, réseau lent, script bloqué), on lit la page simplement
+  setTimeout(function () { if (!document.documentElement.classList.contains("pret")) document.documentElement.classList.add("sans3d"); }, 6000);
+</script>
+<noscript><style>.ch{opacity:1!important;position:static!important;translate:none!important;margin:0 auto;padding:4rem 1.4rem}.chapitres{position:static!important}#scene3d,.piste,.fil-voyage{display:none}</style></noscript>
 </body>
 </html>

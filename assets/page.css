@@ -88,7 +88,7 @@ ol.etapes li::before{content:counter(e);font-family:var(--titre);font-size:2.2re
 .tableau td,.tableau th{background:rgba(16,17,18,.78)}
 
 /* petits écrans : rien ne déborde sur le côté */
-html,body{overflow-x:hidden;max-width:100%}
+html,body{overflow-x:clip;max-width:100%}
 .page .entete h1{overflow-wrap:break-word;hyphens:auto}
 @media (max-width:600px){
   .page .entete h1{font-size:clamp(2.3rem,10.5vw,3.4rem)}
@@ -99,3 +99,23 @@ html,body{overflow-x:hidden;max-width:100%}
   .page .nav{gap:.8rem}
 }
 @media (max-width:600px){.tableau{table-layout:fixed;font-size:.76rem}.tableau td:first-child,.tableau th:first-child{width:38%}.tableau thead th{font-size:.9rem}}
+
+/* prix et choix de la période */
+.periode-choix{display:inline-flex;gap:.3rem;padding:.3rem;border-radius:99px;border:1px solid rgba(248,231,233,.18);background:rgba(16,17,18,.7);margin-top:1rem}
+.periode-choix button{font:inherit;font-size:.9rem;color:var(--texte2);background:none;border:0;border-radius:99px;padding:.55rem 1.1rem;cursor:pointer}
+.periode-choix button[aria-checked="true"]{background:var(--petale);color:var(--nuit)}
+.carte .prix{margin:.2rem 0 1.1rem;color:var(--texte)}
+.carte .prix .montant{font-family:var(--titre);font-size:2.2rem}
+.carte .prix .periode{color:var(--texte2);font-size:.95rem}
+.carte .prix .annuel-info{display:block;color:var(--petale2);font-size:.82rem;margin-top:.2rem}
+.note-prix{font-size:.85rem;margin-top:1.2rem}
+
+/* un mot n'est jamais coupé : la taille s'adapte à la colonne */
+.page .entete h1{overflow-wrap:normal;hyphens:manual;font-size:clamp(2.3rem,5.6vw,5.6rem)}
+@media (max-width:600px){.page .entete h1{font-size:clamp(2rem,9.5vw,3.2rem)}}
+
+.note-legale{font-size:.85rem;border-left:2px solid var(--petale2);padding-left:.8rem;margin-top:1.4rem}
+.page section.legal{margin-bottom:2.6rem}
+.page section.legal h2{font-size:clamp(1.5rem,2.4vw,2rem)}
+.page footer .legaux{font-size:.8rem;opacity:.85}
+.page main a[href^="mailto"]{color:var(--petale)}
